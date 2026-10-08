@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عهدتي وفواتيري</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>عهدتي وفواتيري</h1>
+
+  <div class="balance" id="balanceBox">
+    <span>المتبقي من العهدة</span>
+    <strong id="remaining">0.00</strong>
+  </div>
+  <div class="stats">
+    <div>إجمالي العهدة<b id="totalCustody">0.00</b></div>
+    <div>إجمالي الفواتير<b id="totalSpent">0.00</b></div>
+    <div>عدد الفواتير<b id="countInv">0</b></div>
+  </div>
+
+  <div class="card">
+    <h2>إضافة عهدة (استلام مبلغ)</h2>
+    <div class="grid">
+      <div><label>المبلغ</label><input type="number" id="cAmount" step="0.01" inputmode="decimal"></div>
+      <div><label>التاريخ</label><input type="date" id="cDate"></div>
+      <div><label>ملاحظة</label><input type="text" id="cNote" placeholder="مثال: عهدة شهر أكتوبر"></div>
+    </div>
+    <button class="btn" id="addCustody">حفظ العهدة</button>
+  </div>
+
+  <div class="card">
+    <h2>إضافة فاتورة</h2>
+    <div class="grid">
+      <div><label>رقم الفاتورة</label><input type="text" id="iNo"></div>
+      <div><label>التاريخ</label><input type="date" id="iDate"></div>
+      <div><label>المورد / الجهة</label><input type="text" id="iVendor"></div>
+      <div><label>مبلغ الفاتورة</label><input type="number" id="iAmount" step="0.01" inputmode="decimal"></div>
+      <div class="full"><label>الشرح</label><input type="text" id="iDesc" placeholder="شرح الفاتورة"></div>
+    </div>
+    <button class="btn" id="addInvoice">حفظ الفاتورة</button>
+    <p id="msg" class="msg"></p>
+  </div>
+
+  <div class="card">
+    <h2>كشف الحساب</h2>
+    <div class="tools">
+      <input type="text" id="search" placeholder="بحث في الشرح أو المورد أو الرقم">
+      <button class="btn small" id="printBtn">طباعة</button>
+      <button class="btn small" id="csvBtn">تصدير Excel (CSV)</button>
+      <button class="btn small alt" id="backupBtn">نسخة احتياطية</button>
+      <label class="btn small alt">استرجاع<input type="file" id="restoreFile" accept=".json" hidden></label>
+    </div>
+    <div class="table-wrap">
+      <table id="table">
+        <thead>
+          <tr><th>التاريخ</th><th>النوع</th><th>الرقم</th><th>المورد</th><th>الشرح</th><th>مدين (عهدة)</th><th>دائن (فاتورة)</th><th>الرصيد</th><th class="noprint"></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
