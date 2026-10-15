@@ -60,3 +60,20 @@ th { background: #f4f6f8; font-size: 12px; color: #6b7684; }
   .card:not(:last-of-type), .tools, .noprint, .del { display: none !important; }
   .balance { background: #fff; color: #000; border: 1px solid #000; }
 }
+
+.login { max-width: 380px; padding-top: 60px; }
+.top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.top span { font-size: 12px; color: #6b7684; margin-inline-end: 6px; }
+.bar { display: flex; gap: 8px; margin-bottom: 12px; }
+.bar select { flex: 1; padding: 10px; border: 1px solid #d3d9e0; border-radius: 8px; font: inherit; background: #fff; }
+input[type=password], input[type=file] { width: 100%; padding: 10px; border: 1px solid #d3d9e0; border-radius: 8px; font: inherit; background: #fafbfc; }
+tr.click { cursor: pointer; }
+tr.click:hover { background: #f4f6f8; }
+.ic { background: none; border: 0; cursor: pointer; font-size: 15px; }
+#modal { position: fixed; inset: 0; background: rgba(0,0,0,.8); display: flex; align-items: center; justify-content: center; z-index: 9; }
+#modal[hidden], [hidden] { display: none !important; }
+#modal img { max-width: 94%; max-height: 90%; border-radius: 8px; }
+
+.grid select { width: 100%; padding: 10px; border: 1px solid #d3d9e0; border-radius: 8px; font: inherit; background: #fafbfc; }
+.bar-in { display: inline-block; height: 8px; background: #0f766e; border-radius: 4px; vertical-align: middle; }
+@media print { .card.keep { display: block !important; } .filters-card { display: none !important; } }

@@ -7,11 +7,37 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <h1>عهدتي وفواتيري</h1>
+<div id="login" class="container login">
+  <div class="card">
+    <h1>تسجيل الدخول</h1>
+    <label>البريد الإلكتروني</label><input type="text" id="lEmail" dir="ltr">
+    <label style="margin-top:10px">كلمة المرور</label><input type="password" id="lPass" dir="ltr">
+    <button class="btn" id="loginBtn" style="margin-top:12px">دخول</button>
+    <p class="msg err" id="loginMsg"></p>
+  </div>
+</div>
+
+<div id="app" class="container" hidden>
+  <div class="top">
+    <h1>عهدتي وفواتيري</h1>
+    <div><span id="who" dir="ltr"></span> <button class="btn small alt" id="logoutBtn">خروج</button></div>
+  </div>
+
+  <div class="bar">
+    <select id="custSel"></select>
+    <button class="btn small" id="newCustBtn">+ عهدة جديدة</button>
+  </div>
+  <div class="card" id="newCustCard" hidden>
+    <h2>عهدة جديدة</h2>
+    <div class="grid">
+      <div><label>اسم المستلم</label><input type="text" id="nHolder"></div>
+      <div><label>الفرع</label><input type="text" id="nBranch"></div>
+    </div>
+    <button class="btn" id="saveCust">حفظ العهدة</button>
+  </div>
 
   <div class="balance" id="balanceBox">
-    <span>المتبقي من العهدة</span>
+    <span id="scopeName">المتبقي من العهدة</span>
     <strong id="remaining">0.00</strong>
   </div>
   <div class="stats">
@@ -20,48 +46,67 @@
     <div>عدد الفواتير<b id="countInv">0</b></div>
   </div>
 
+  <div class="card"><h2>ملخص العهد (اضغط على صف لفتح العهدة)</h2><div class="table-wrap" id="summary"></div></div>
+
   <div class="card">
-    <h2>إضافة عهدة (استلام مبلغ)</h2>
+    <h2 id="cTitle">إضافة مبلغ عهدة (استلام)</h2>
     <div class="grid">
       <div><label>المبلغ</label><input type="number" id="cAmount" step="0.01" inputmode="decimal"></div>
       <div><label>التاريخ</label><input type="date" id="cDate"></div>
-      <div><label>ملاحظة</label><input type="text" id="cNote" placeholder="مثال: عهدة شهر أكتوبر"></div>
+      <div><label>ملاحظة</label><input type="text" id="cNote"></div>
     </div>
-    <button class="btn" id="addCustody">حفظ العهدة</button>
+    <button class="btn" id="addCustody">حفظ</button>
+    <button class="btn alt" id="cCancel" hidden>إلغاء التعديل</button>
   </div>
 
   <div class="card">
-    <h2>إضافة فاتورة</h2>
+    <h2 id="iTitle">إضافة فاتورة</h2>
     <div class="grid">
       <div><label>رقم الفاتورة</label><input type="text" id="iNo"></div>
       <div><label>التاريخ</label><input type="date" id="iDate"></div>
       <div><label>المورد / الجهة</label><input type="text" id="iVendor"></div>
+      <div><label>نوع المصروف</label><select id="iCat"></select></div>
       <div><label>مبلغ الفاتورة</label><input type="number" id="iAmount" step="0.01" inputmode="decimal"></div>
-      <div class="full"><label>الشرح</label><input type="text" id="iDesc" placeholder="شرح الفاتورة"></div>
+      <div class="full"><label>الشرح</label><input type="text" id="iDesc"></div>
+      <div class="full"><label>صورة الفاتورة (اختياري)</label><input type="file" id="iFile" accept="image/*"></div>
     </div>
     <button class="btn" id="addInvoice">حفظ الفاتورة</button>
+    <button class="btn alt" id="iCancel" hidden>إلغاء التعديل</button>
     <p id="msg" class="msg"></p>
+  </div>
+
+  <div class="card filters-card">
+    <h2>فلترة التقارير</h2>
+    <div class="grid">
+      <div><label>نوع المصروف</label><select id="fCat"></select></div>
+      <div><label>من تاريخ</label><input type="date" id="fFrom"></div>
+      <div><label>إلى تاريخ</label><input type="date" id="fTo"></div>
+    </div>
+    <button class="btn small alt" id="clearF">مسح الفلاتر</button>
+  </div>
+
+  <div class="card keep">
+    <h2>المصروفات حسب النوع (اضغط على صف للفلترة)</h2>
+    <div class="table-wrap" id="catSummary"></div>
   </div>
 
   <div class="card">
     <h2>كشف الحساب</h2>
     <div class="tools">
-      <input type="text" id="search" placeholder="بحث في الشرح أو المورد أو الرقم">
+      <input type="text" id="search" placeholder="بحث">
       <button class="btn small" id="printBtn">طباعة</button>
       <button class="btn small" id="csvBtn">تصدير Excel (CSV)</button>
-      <button class="btn small alt" id="backupBtn">نسخة احتياطية</button>
-      <label class="btn small alt">استرجاع<input type="file" id="restoreFile" accept=".json" hidden></label>
     </div>
     <div class="table-wrap">
       <table id="table">
-        <thead>
-          <tr><th>التاريخ</th><th>النوع</th><th>الرقم</th><th>المورد</th><th>الشرح</th><th>مدين (عهدة)</th><th>دائن (فاتورة)</th><th>الرصيد</th><th class="noprint"></th></tr>
-        </thead>
+        <thead><tr><th>التاريخ</th><th>العهدة</th><th>النوع</th><th>الرقم</th><th>المورد</th><th>الشرح</th><th>النوع</th><th>مدين</th><th>دائن</th><th>الرصيد</th><th class="noprint"></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
+    <p id="shownTotal" class="msg"></p>
   </div>
 </div>
-<script src="script.js"></script>
+<div id="modal" hidden><img id="modalImg" alt=""></div>
+<script type="module" src="script.js"></script>
 </body>
 </html>
