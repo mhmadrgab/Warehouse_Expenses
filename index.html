@@ -7,21 +7,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="login" class="container login">
-  <div class="card">
-    <h1>تسجيل الدخول</h1>
-    <label>البريد الإلكتروني</label><input type="text" id="lEmail" dir="ltr">
-    <label style="margin-top:10px">كلمة المرور</label><input type="password" id="lPass" dir="ltr">
-    <button class="btn" id="loginBtn" style="margin-top:12px">دخول</button>
-    <p class="msg err" id="loginMsg"></p>
-  </div>
-</div>
-
-<div id="app" class="container" hidden>
-  <div class="top">
-    <h1>عهدتي وفواتيري</h1>
-    <div><span id="who" dir="ltr"></span> <button class="btn small alt" id="logoutBtn">خروج</button></div>
-  </div>
+<div id="app" class="container">
+  <h1>عهدتي وفواتيري</h1>
 
   <div class="bar">
     <select id="custSel"></select>
@@ -96,6 +83,8 @@
       <input type="text" id="search" placeholder="بحث">
       <button class="btn small" id="printBtn">طباعة</button>
       <button class="btn small" id="csvBtn">تصدير Excel (CSV)</button>
+      <button class="btn small alt" id="backupBtn">نسخة احتياطية</button>
+      <label class="btn small alt">استرجاع<input type="file" id="restoreFile" accept=".json" hidden></label>
     </div>
     <div class="table-wrap">
       <table id="table">
@@ -107,6 +96,6 @@
   </div>
 </div>
 <div id="modal" hidden><img id="modalImg" alt=""></div>
-<script type="module" src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
